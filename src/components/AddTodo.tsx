@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useRef } from "react";
 import "../styles/AddTodo.css";
-import { ADD_TODO, FRAGMENT_TODO } from "../mutations/mutations";
+import { ADD_TODO, FRAGMENT_TODO, GET_TODO } from "../mutations/mutations";
 import TodoDisplay from "./TodoDisplay";
 
 const AddTodo = () => {
@@ -18,9 +18,14 @@ const AddTodo = () => {
         },
       });
     },
+    onQueryUpdated(observableQuery) {
+      return observableQuery.refetch(); //Avoid this or cancel it while running
+    },
   });
 
-//   const [addTodo, addTodoProps] = useMutation(ADD_TODO);
+  //   const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
+  //     refetchQueries: [{ query: GET_TODO }],
+  //   });
 
   const inputTodoRef = useRef<HTMLInputElement>(null);
 
@@ -45,6 +50,16 @@ const AddTodo = () => {
           }}
         >
           Add Todo
+        </button>
+
+        <button
+          type="button"
+          className="inputBox"
+          onClick={() => {
+            addTodoProps.reset();
+          }}
+        >
+          Reset Mutation
         </button>
 
         <h2>{addTodoProps.loading && "Loading..."}</h2>
