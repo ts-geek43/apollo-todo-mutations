@@ -1,4 +1,32 @@
 .todoDisplayBox{
-    display: flex;
+    display: block;
     flex-direction: column;
+    width: 100%;
+}
+
+.todoDataBox{
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
+    justify-content: space-between;
+}
+
+.indexBox {
+    width: 10%;
+}
+
+.colonBox{
+    width: 5%;
+}
+
+.idBox{
+    width: 20%;
+}
+
+.todoInputBox{
+    padding: 10px;
+    font-size: 20px;
+    /* width: 20%; */
 }
