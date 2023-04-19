@@ -1,0 +1,4 @@
+.todoDisplayBox{
+    display: flex;
+    flex-direction: column;
+}
