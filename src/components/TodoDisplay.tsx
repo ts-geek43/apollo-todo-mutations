@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_TODO } from "../mutations/mutations";
 import "../styles/TodoDisplay.css";
 import { UPDATE_TODO } from "../mutations/mutations";
+import TodoDisplaySub from "./TodoDisplaySub";
 
 const TodoDisplay = () => {
   const todoProps = useQuery(GET_TODO);
@@ -12,13 +13,13 @@ const TodoDisplay = () => {
 
   //   console.log(todoProps.data);
 
-  const handleUpdate = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: string
-  ) => {
-    console.log(updateTodoRef.current);
-    todoUpdate({ variables: { id: id, type: updateType } });
-  };
+  //   const handleUpdate = (
+  //     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  //     id: string
+  //   ) => {
+  //     console.log(updateTodoRef.current);
+  //     todoUpdate({ variables: { id: id, type: updateType } });
+  //   };
 
   return (
     <>
@@ -31,24 +32,12 @@ const TodoDisplay = () => {
           todoProps.data.todos.map((item: any, i: number) => {
             return (
               <div id={`${i}`} className="todoDataBox">
-                <h4 className="indexBox">{i}</h4>
-                <h4 className="colonBox">:</h4>
-                <h4 className="idBox">ID - {item.id}</h4>
-                <h4 className="colonBox">:</h4>
-                <input
-                  className="todoInputBox"
-                  defaultValue={item.type}
-                  onChange={(e) => setUpdateType(e.currentTarget.value)}
+                <TodoDisplaySub
+                  i={i}
+                  item={item}
+                  handleUpdate={todoUpdate}
+                  setUpdateType={setUpdateType}
                 />
-                <button
-                  className="todoInputBox"
-                  type="button"
-                  onClick={(e) => {
-                    handleUpdate(e, `${item.id}`);
-                  }}
-                >
-                  Update Todo
-                </button>
               </div>
             );
           })}
