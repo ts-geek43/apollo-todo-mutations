@@ -15,14 +15,24 @@ const AddTodo = () => {
           placeholder="Enter name of todo"
           className="inputBox"
           ref={inputTodoRef}
+          //   value={inputTodoRef.current?.value}
         />
         <button
           type="button"
           className="inputBox"
-          onClick={() => console.log(inputTodoRef.current?.value)}
+          onClick={() => {
+            console.log(inputTodoRef.current?.value);
+            addTodo({ variables: { type: inputTodoRef.current?.value } });
+          }}
         >
           Add Todo
         </button>
+
+        <h2>{addTodoProps.loading && "Loading..."}</h2>
+        {addTodoProps.error && <h2>{addTodoProps.error.message}</h2>}
+        {addTodoProps.data && (
+          <h3>New object created with ID: - {addTodoProps.data.addTodo.id}</h3>
+        )}
       </div>
     </>
   );
