@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import AddTodo from "./components/AddTodo";
+import TodoDisplay from "./components/TodoDisplay";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <h1> Apollo Client Mutation Practice</h1>
 
       <AddTodo />
+      <TodoDisplay />
     </div>
   );
 }
