@@ -3,7 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
+import { createFragmentRegistry } from "@apollo/client/cache";
 
 const TodoClient = new ApolloClient({
   uri: "https://sxewr.sse.codesandbox.io/",
