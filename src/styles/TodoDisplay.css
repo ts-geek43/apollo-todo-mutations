@@ -1,32 +1,37 @@
-.todoDisplayBox{
-    display: block;
-    flex-direction: column;
-    width: 100%;
+.todoDisplayBox {
+  display: block;
+  flex-direction: column;
+  width: 100%;
 }
 
-.todoDataBox{
-    display: flex;
-    margin: auto;
-    flex-direction: row;
-    align-items: center;
-    width: 70%;
-    justify-content: space-between;
+.todoDataBox {
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  align-items: center;
+  width: 70%;
+  justify-content: space-between;
+}
+
+.todoUpdateStateBox {
+  display: flex;
+  justify-content: center;
 }
 
 .indexBox {
-    width: 10%;
+  width: 10%;
 }
 
-.colonBox{
-    width: 5%;
+.colonBox {
+  width: 5%;
 }
 
-.idBox{
-    width: 20%;
+.idBox {
+  width: 20%;
 }
 
-.todoInputBox{
-    padding: 10px;
-    font-size: 20px;
-    /* width: 20%; */
+.todoInputBox {
+  padding: 10px;
+  font-size: 20px;
+  /* width: 20%; */
 }
