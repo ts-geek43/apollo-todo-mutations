@@ -27,6 +27,22 @@ export const GET_TODO = gql`
   }
 `;
 
+export const FRAGMENT_TODO_TYPE = gql`
+  fragment TodoType on Todo {
+    type
+  }
+`;
+
+export const GET_TODO_TYPE = gql`
+  ${FRAGMENT_TODO_TYPE}
+
+  query getTodo {
+    todos {
+      ...TodoType
+    }
+  }
+`;
+
 export const UPDATE_TODO = gql`
   ${FRAGMENT_TODO}
   mutation UpdateTodo($id: String!, $type: String!) {
