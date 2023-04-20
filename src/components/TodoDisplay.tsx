@@ -31,7 +31,7 @@ const TodoDisplay = () => {
         {todoProps.data &&
           todoProps.data.todos.map((item: any, i: number) => {
             return (
-              <div id={`${i}`} className="todoDataBox">
+              <div key={`${i}`} className="todoDataBox">
                 <TodoDisplaySub
                   i={i}
                   item={item}
