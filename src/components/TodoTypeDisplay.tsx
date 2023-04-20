@@ -9,7 +9,9 @@ const TodoTypeDisplay = () => {
   return (
     <React.Fragment>
       <div>
-        <button className="todoInputBox" onClick={()=>loadTodoLazy()}>Load Lazily</button>
+        <button className="todoInputBox" onClick={() => loadTodoLazy()}>
+          Load Lazily
+        </button>
       </div>
     </React.Fragment>
   );
