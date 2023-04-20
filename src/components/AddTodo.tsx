@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "../styles/AddTodo.css";
 import { ADD_TODO, FRAGMENT_TODO, GET_TODO } from "../mutations/mutations";
 import TodoDisplay from "./TodoDisplay";
@@ -18,10 +18,19 @@ const AddTodo = () => {
         },
       });
     },
-    onQueryUpdated(observableQuery) {
-      return observableQuery.refetch(); //Avoid this or cancel it while running
-    },
+    // onQueryUpdated(observableQuery) {
+    //   return observableQuery.refetch(); //Avoid this or cancel it while running
+    // },
   });
+
+  useEffect(() => {
+    window.addEventListener("keypress", (e) => {
+      if (e.key == "r") {
+        window.location.reload();
+      }
+      console.log("key pressed: - ", e.key);
+    });
+  }, []);
 
   //   const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
   //     refetchQueries: [{ query: GET_TODO }],
@@ -32,35 +41,47 @@ const AddTodo = () => {
   return (
     <>
       <div>
-        <input
-          type="text"
-          placeholder="Enter name of todo"
-          className="inputBox"
-          ref={inputTodoRef}
-          //   value={inputTodoRef.current?.value}
-        />
-        <button
-          type="button"
-          className="inputBox"
-          onClick={() => {
-            console.log(inputTodoRef.current?.value);
-            addTodo({ variables: { type: inputTodoRef.current?.value } });
-            inputTodoRef.current?.setAttribute("value", "");
-            // setDummy(!dummy);
-          }}
-        >
-          Add Todo
-        </button>
+        <form>
+          <input
+            type="text"
+            placeholder="Enter name of todo"
+            className="inputBox"
+            ref={inputTodoRef}
+            //   value={inputTodoRef.current?.value}
+          />
+          <button
+            type="submit"
+            className="inputBox"
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(inputTodoRef.current?.value);
+              addTodo({ variables: { type: inputTodoRef.current?.value } });
+              inputTodoRef.current?.setAttribute("value", "");
+              // setDummy(!dummy);
+            }}
+          >
+            Add Todo
+          </button>
 
-        <button
-          type="button"
-          className="inputBox"
-          onClick={() => {
-            addTodoProps.reset();
-          }}
-        >
-          Reset Mutation
-        </button>
+          <button
+            type="button"
+            className="inputBox"
+            onClick={() => {
+              addTodoProps.reset();
+            }}
+          >
+            Reset Mutation
+          </button>
+          <button
+            type="button"
+            className="inputBox"
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Refresh
+          </button>
+        </form>
 
         <h2>{addTodoProps.loading && "Loading..."}</h2>
         {addTodoProps.error && <h2>{addTodoProps.error.message}</h2>}
