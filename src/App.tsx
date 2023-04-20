@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import AddTodo from "./components/AddTodo";
 import TodoDisplay from "./components/TodoDisplay";
+import TodoTypeDisplay from "./components/TodoTypeDisplay";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
 
       <AddTodo />
       <TodoDisplay />
+      <TodoTypeDisplay />
     </div>
   );
 }
