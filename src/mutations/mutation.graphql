@@ -1,0 +1,35 @@
+fragment TodoParts on Todo {
+  id
+  type
+}
+
+fragment TodoType on Todo {
+  type
+}
+
+mutation AddTodo($type: String!) {
+  addTodo(type: $type) {
+    id
+    ...TodoParts
+  }
+}
+
+query getTodo {
+  todos {
+    id
+    ...TodoParts
+  }
+}
+
+query getTodoType {
+  todos {
+    ...TodoType
+  }
+}
+
+mutation UpdateTodo($id: String!, $type: String!) {
+  updateTodo(id: $id, type: $type) {
+    id
+    ...TodoParts
+  }
+}
