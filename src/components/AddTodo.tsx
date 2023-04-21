@@ -23,15 +23,6 @@ const AddTodo = () => {
     // },
   });
 
-  useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key == "r") {
-        window.location.reload();
-      }
-      console.log("key pressed: - ", e.key);
-    });
-  }, []);
-
   //   const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
   //     refetchQueries: [{ query: GET_TODO }],
   //   });
