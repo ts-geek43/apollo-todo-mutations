@@ -11,16 +11,6 @@ const TodoDisplay = () => {
   const [updateType, setUpdateType] = useState("");
   const [todoUpdate, todoUpdateProps] = useMutation(UPDATE_TODO);
 
-  //   console.log(todoProps.data);
-
-  //   const handleUpdate = (
-  //     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  //     id: string
-  //   ) => {
-  //     console.log(updateTodoRef.current);
-  //     todoUpdate({ variables: { id: id, type: updateType } });
-  //   };
-
   return (
     <>
       <div className="todoDisplayBox" ref={updateTodoRef}>
