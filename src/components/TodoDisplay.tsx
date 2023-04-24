@@ -1,14 +1,12 @@
 import React, { useRef, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { GET_TODO } from "../mutations/mutations";
 import "../styles/TodoDisplay.css";
-import { UPDATE_TODO } from "../mutations/mutations";
 import TodoDisplaySub from "./TodoDisplaySub";
 import { useGetTodoQuery, useUpdateTodoMutation } from "../generated/graphql";
 import TypeLoadData from "../hooks/TypeLoadData";
+import { useTodoLoadData } from "../hooks/useTodo";
 
 const TodoDisplay = () => {
-  const getTodoProps = useGetTodoQuery();
+  const getTodoProps = useTodoLoadData();
   const updateTodoRef = useRef(null);
   const [todoUpdateCodegen, todoUpdateCodegenProps] = useUpdateTodoMutation();
   const [updateType, setUpdateType] = useState("");
@@ -32,7 +30,7 @@ const TodoDisplay = () => {
               </div>
             );
           })}
-          <TypeLoadData/>
+        {/* <TypeLoadData /> */}
       </div>
     </>
   );

@@ -13,7 +13,7 @@ const TypeLoadData = () => {
           textAlign: "center",
         }}
       >
-        Loading...
+        Loading . . .
       </h1>
     );
   }
