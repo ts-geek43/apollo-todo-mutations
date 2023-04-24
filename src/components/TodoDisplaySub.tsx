@@ -17,7 +17,6 @@ const TodoDisplaySub = (props: any) => {
       <input
         className="todoInputBox"
         defaultValue={item.type}
-        onChange={(e) => setUpdateType(e.currentTarget.value)}
         ref={localRef}
       />
       <button
