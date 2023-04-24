@@ -4,9 +4,10 @@ import { GET_TODO } from "../mutations/mutations";
 import "../styles/TodoDisplay.css";
 import { UPDATE_TODO } from "../mutations/mutations";
 import TodoDisplaySub from "./TodoDisplaySub";
+import { useGetTodoQuery } from "../generated/graphql";
 
 const TodoDisplay = () => {
-  const todoProps = useQuery(GET_TODO);
+  const getTodoProps = useGetTodoQuery();
   const updateTodoRef = useRef(null);
   const [updateType, setUpdateType] = useState("");
   const [todoUpdate, todoUpdateProps] = useMutation(UPDATE_TODO);
@@ -15,11 +16,11 @@ const TodoDisplay = () => {
     <>
       <div className="todoDisplayBox" ref={updateTodoRef}>
         <div className="todoUpdateStateBox">
-          {todoUpdateProps.loading && <h3>Updating....</h3>}
-          {todoUpdateProps.error && <h3>{todoUpdateProps.error.message}</h3>}
+          {getTodoProps.loading && <h3>Updating....</h3>}
+          {getTodoProps.error && <h3>{getTodoProps.error.message}</h3>}
         </div>
-        {todoProps.data &&
-          todoProps.data.todos.map((item: any, i: number) => {
+        {getTodoProps.data?.todos &&
+          getTodoProps.data.todos.map((item: any, i: number) => {
             return (
               <div key={`${i}`} className="todoDataBox">
                 <TodoDisplaySub
@@ -27,7 +28,7 @@ const TodoDisplay = () => {
                   item={item}
                   handleUpdate={todoUpdate}
                   setUpdateType={setUpdateType}
-                />  
+                />
               </div>
             );
           })}
