@@ -3,29 +3,49 @@ import React, { useEffect, useRef } from "react";
 import "../styles/AddTodo.css";
 import { ADD_TODO, FRAGMENT_TODO, GET_TODO } from "../mutations/mutations";
 import TodoDisplay from "./TodoDisplay";
+import { useAddTodoMutation } from "../generated/graphql";
 
 const AddTodo = () => {
   //   const [dummy, setDummy] = useState(true);
 
-  const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
-    update(cache, { data: { addTodo } }) {
+  const [useAddTodo, addTodoMutateProps] = useAddTodoMutation({
+    update(cache, { data: useAddTodo }) {
       cache.modify({
         fields: {
           todos(existingTodos = []) {
-            existingTodos = [...existingTodos, addTodo];
+            existingTodos = [...existingTodos, useAddTodo];
             return existingTodos;
           },
         },
       });
     },
-    // onQueryUpdated(observableQuery) {
-    //   return observableQuery.refetch(); //Avoid this or cancel it while running
-    // },
   });
+
+  // const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
+  //   update(cache, { data: { addTodo } }) {
+  //     cache.modify({
+  //       fields: {
+  //         todos(existingTodos = []) {
+  //           existingTodos = [...existingTodos, addTodo];
+  //           return existingTodos;
+  //         },
+  //       },
+  //     });
+  //   },
+  //   // onQueryUpdated(observableQuery) {
+  //   //   return observableQuery.refetch(); //Avoid this or cancel it while running
+  //   // },
+  // });
 
   //   const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
   //     refetchQueries: [{ query: GET_TODO }],
   //   });
+
+  const HandleAddTodo = () => {
+    useAddTodo({
+      variables: { type: inputTodoRef.current?.value || "" },
+    });
+  };
 
   const inputTodoRef = useRef<HTMLInputElement>(null);
 
@@ -41,15 +61,19 @@ const AddTodo = () => {
             //   value={inputTodoRef.current?.value}
           />
           <button
-            type="submit"
+            type="button"
             className="inputBox"
-            onClick={(e) => {
-              e.preventDefault();
-              console.log(inputTodoRef.current?.value);
-              addTodo({ variables: { type: inputTodoRef.current?.value } });
-              inputTodoRef.current?.setAttribute("value", "");
-              // setDummy(!dummy);
-            }}
+            onClick={(e) => HandleAddTodo()}
+            // onClick={(e) => {
+            //   e.preventDefault();
+            //   console.log(inputTodoRef.current?.value);
+            //   // addTodo({ variables: { type: inputTodoRef.current?.value } });
+            //   useAddTodo({
+            //     variables: { type: inputTodoRef.current?.value || "" },
+            //   });
+            //   inputTodoRef.current?.setAttribute("value", "");
+            //   // setDummy(!dummy);
+            // }}
           >
             Add Todo
           </button>
@@ -58,7 +82,7 @@ const AddTodo = () => {
             type="button"
             className="inputBox"
             onClick={() => {
-              addTodoProps.reset();
+              addTodoMutateProps.reset();
             }}
           >
             Reset Mutation
@@ -74,10 +98,14 @@ const AddTodo = () => {
           </button>
         </form>
 
-        <h2>{addTodoProps.loading && "Loading..."}</h2>
-        {addTodoProps.error && <h2>{addTodoProps.error.message}</h2>}
-        {addTodoProps.data && (
-          <h3>New object created with ID: - {addTodoProps.data.addTodo.id}</h3>
+        <h2>{addTodoMutateProps.loading && "Loading..."}</h2>
+        {addTodoMutateProps.error && (
+          <h2>{addTodoMutateProps.error.message}</h2>
+        )}
+        {addTodoMutateProps.data && (
+          <h3>
+            New object created with ID: - {addTodoMutateProps.data.addTodo?.id}
+          </h3>
         )}
       </div>
     </>

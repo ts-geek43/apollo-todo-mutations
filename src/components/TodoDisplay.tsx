@@ -27,7 +27,7 @@ const TodoDisplay = () => {
                   item={item}
                   handleUpdate={todoUpdate}
                   setUpdateType={setUpdateType}
-                />
+                />  
               </div>
             );
           })}
