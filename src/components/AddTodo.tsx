@@ -6,14 +6,19 @@ import TodoDisplay from "./TodoDisplay";
 import { useAddTodoMutation } from "../generated/graphql";
 
 const AddTodo = () => {
-  //   const [dummy, setDummy] = useState(true);
 
   const [useAddTodo, addTodoMutateProps] = useAddTodoMutation({
     update(cache, { data: useAddTodo }) {
       cache.modify({
         fields: {
           todos(existingTodos = []) {
-            existingTodos = [...existingTodos, useAddTodo];
+            console.log("Data before adding: - ", existingTodos);
+            existingTodos = [
+              ...existingTodos,
+              { __ref: `Todo:${useAddTodo?.addTodo?.id}` },
+            ];
+            console.log("Data After adding: - ", existingTodos);
+
             return existingTodos;
           },
         },
@@ -21,25 +26,6 @@ const AddTodo = () => {
     },
   });
 
-  // const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
-  //   update(cache, { data: { addTodo } }) {
-  //     cache.modify({
-  //       fields: {
-  //         todos(existingTodos = []) {
-  //           existingTodos = [...existingTodos, addTodo];
-  //           return existingTodos;
-  //         },
-  //       },
-  //     });
-  //   },
-  //   // onQueryUpdated(observableQuery) {
-  //   //   return observableQuery.refetch(); //Avoid this or cancel it while running
-  //   // },
-  // });
-
-  //   const [addTodo, addTodoProps] = useMutation(ADD_TODO, {
-  //     refetchQueries: [{ query: GET_TODO }],
-  //   });
 
   const HandleAddTodo = () => {
     useAddTodo({
@@ -58,22 +44,14 @@ const AddTodo = () => {
             placeholder="Enter name of todo"
             className="inputBox"
             ref={inputTodoRef}
-            //   value={inputTodoRef.current?.value}
           />
           <button
-            type="button"
+            type="submit"
             className="inputBox"
-            onClick={(e) => HandleAddTodo()}
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   console.log(inputTodoRef.current?.value);
-            //   // addTodo({ variables: { type: inputTodoRef.current?.value } });
-            //   useAddTodo({
-            //     variables: { type: inputTodoRef.current?.value || "" },
-            //   });
-            //   inputTodoRef.current?.setAttribute("value", "");
-            //   // setDummy(!dummy);
-            // }}
+            onClick={(e) => {
+              e.preventDefault();
+              HandleAddTodo();
+            }}
           >
             Add Todo
           </button>
