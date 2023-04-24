@@ -4,13 +4,13 @@ import { GET_TODO } from "../mutations/mutations";
 import "../styles/TodoDisplay.css";
 import { UPDATE_TODO } from "../mutations/mutations";
 import TodoDisplaySub from "./TodoDisplaySub";
-import { useGetTodoQuery } from "../generated/graphql";
+import { useGetTodoQuery, useUpdateTodoMutation } from "../generated/graphql";
 
 const TodoDisplay = () => {
   const getTodoProps = useGetTodoQuery();
   const updateTodoRef = useRef(null);
+  const [todoUpdateCodegen, todoUpdateCodegenProps] = useUpdateTodoMutation();
   const [updateType, setUpdateType] = useState("");
-  const [todoUpdate, todoUpdateProps] = useMutation(UPDATE_TODO);
 
   return (
     <>
@@ -26,8 +26,7 @@ const TodoDisplay = () => {
                 <TodoDisplaySub
                   i={i}
                   item={item}
-                  handleUpdate={todoUpdate}
-                  setUpdateType={setUpdateType}
+                  handleUpdate={todoUpdateCodegen}
                 />
               </div>
             );
