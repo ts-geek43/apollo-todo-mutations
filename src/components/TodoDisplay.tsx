@@ -5,6 +5,7 @@ import "../styles/TodoDisplay.css";
 import { UPDATE_TODO } from "../mutations/mutations";
 import TodoDisplaySub from "./TodoDisplaySub";
 import { useGetTodoQuery, useUpdateTodoMutation } from "../generated/graphql";
+import TypeLoadData from "../hooks/TypeLoadData";
 
 const TodoDisplay = () => {
   const getTodoProps = useGetTodoQuery();
@@ -31,6 +32,7 @@ const TodoDisplay = () => {
               </div>
             );
           })}
+          <TypeLoadData/>
       </div>
     </>
   );
